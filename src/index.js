@@ -13,21 +13,16 @@ function inputCountry(e) {
     let name = e.target.value.trim();
     resetList();
     resetCard();
-    if (name != "" && name != " ") {
         fetchCountries(name).then(data => {
             if (data.length > 10) {
-                resetList();
-                resetCard();
                 return Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
             }
             if (data.length > 1 && data.length < 11) {
-                resetCard();
                 let markup = data.map(countryItems);                
                 ref.listCountry.innerHTML = markup.join("");
                
             }
             if (data.length === 1) { 
-                resetList();
                 let markup = countryCard(data[0])
                 ref.infoCountry.innerHTML = markup;
                 
@@ -35,10 +30,9 @@ function inputCountry(e) {
         }).catch(err => {
             
             Notiflix.Notify.failure("Oops, there is no country with that name");
-            resetList();
-            resetCard();
+            
         });
-    }
+    
 }
 
 function resetList() {
